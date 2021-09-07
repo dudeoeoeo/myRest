@@ -21,6 +21,7 @@ public class BoardController {
     public String list(Model model) {
         List<Board> boards = boardRepository.findAll();
         model.addAttribute("boards", boards);
+        System.out.println("/board/list 호출");
         return "board/list";
     }
 
