@@ -36,7 +36,7 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item" th:classappend="${menu} == 'home' ? 'active'">
+          <li class="nav-item active" th:classappend="${menu} == 'home' ? 'active'">
             <a class="nav-link" href="#" th:href="@{/}"> 홈 <span class="sr-only" th:if="${menu} == 'home'">(current)</span></a
             >
           </li>
