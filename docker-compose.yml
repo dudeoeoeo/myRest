@@ -1,0 +1,16 @@
+version: "3.7"
+
+services: 
+  mariadb-standalone-container:
+    image: mariadb:10.4
+    container_name: maria_spring
+    environment: 
+      - MARIADB_DATABASE=dev1
+      - MARIADB_USER=myadmin
+      - MARIADB_PASSWORD=12341234
+      - MARIADB_ROOT_PASSWORD=password
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    ports:
+      - 13306:3306
+    volumes: 
+      - D:\SpringWorkSpace\mariadb:/var/lib/mysql
