@@ -22,7 +22,22 @@
 
     <div class="container">
         <h1>게시판</h1>
-        <div>총 건수: <span th:text="${#lists.size(boards)}"></span></div>
+        <div>총 건수: <span th:text="${boards.totalElements}"></span></div>
+
+        <form class="form-inline d-flex justify-content-end" method="GET" th:action="@{/board/list}">
+          <div class="row g-3 align-items-center">
+            <!-- <div class="col-auto">
+              <label for="searchText" class="col-form-label">검색</label>
+            </div> -->
+            <div class="col-auto">
+              <input type="text" id="searchText" name="searchText" class="form-control" th:value="${param.searchText}" placeholder="검색어를 입력해주세요.">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-light mb-2">검색</button>
+            </div>
+          </div>
+        </form>
+
         <table class="table table-striped">
           <thead>
             <tr>
@@ -40,11 +55,28 @@
             </tr>
           </tbody>
         </table>
-        <div class="text-right">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <!-- JPA는 pageNumber가 0부터 시작 하므로 +1 -->
+              <li class="page-item" th:classappend="${1 == boards.pageable.pageNumber+1} ? 'disabled'">
+                                                                                                  <!-- url의 param을 가져옴 -->
+                <a class="page-link" th:href="@{/board/list(page=${boards.pageable.pageNumber - 1}, searchText=${param.searchText})}">Previous</a>
+              </li>
+              <li class="page-item" th:classappend="${i == boards.pageable.pageNumber+1} ? 'disabled'" th:each="i: ${#numbers.sequence(startPage, endPage)}">
+                <!-- 페이지 이동 시 검색한 데이터도 같이 넘김 -->
+                <a class="page-link" th:href="@{/board/list(page=${i - 1}, searchText=${param.searchText})}" th:text="${i}">1</a>
+              </li>
+              <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber+1 || boards.totalPages == boards.pageable.pageNumber} ? 'disabled'">
+                <a class="page-link" th:href="@{/board/list(page=${boards.pageable.pageNumber + 1}, searchText=${param.searchText})}">Next</a>
+              </li>
+            </ul>
+          </nav>
+        <div class="text-end">
           <a type="button" class="btn btn-primary" th:href="@{/board/form}">쓰기</a>
         </div>
     </div>
-        
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <!-- /.container -->
   </body>
 </html>
