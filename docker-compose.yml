@@ -13,4 +13,4 @@ services:
     ports:
       - 13306:3306
     volumes: 
-      - D:\SpringWorkSpace\mariadb:/var/lib/mysql
+      - C:\Spring_git\mariadb:/var/lib/mysql
