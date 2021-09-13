@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // application.properties 파일에 정의해둔 datasource 사용
     private DataSource dataSource;
 
+    // 권한 설정
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http

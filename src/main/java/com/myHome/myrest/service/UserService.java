@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-// Business 로직 담당
+// Business 로직만 담당
 @Service
 public class UserService {
 
@@ -24,6 +24,7 @@ public class UserService {
         Role role = new Role();
         role.setId(1L);
         user.getRoles().add(role);
+
         return userRepository.save(user);
     }
 }

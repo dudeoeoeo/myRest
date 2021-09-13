@@ -27,6 +27,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public String register(User user) {
+        System.out.println("post register 호출: "+user.getUsername());
         userService.save(user);
         return "redirect:/";
     }
