@@ -28,7 +28,8 @@ public class User {
 
 
     // Board model이 가지고 있는 private User user 와 map
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
+    // orphanRemoval = true = 부모가 없는 데이터는 전부 지움
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 
 }
