@@ -18,13 +18,18 @@ public class User {
     private String password;
     private boolean enabled;
 
-
     @ManyToMany
     @JoinTable(
     name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"), // join할 테이블
     inverseJoinColumns = @JoinColumn(name = "role_id")) // join될 테이블
     private List<Role> roles = new ArrayList<>();
+
+
+
+    // Board model이 가지고 있는 private User user 와 map
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Board> boards = new ArrayList<>();
 
 }
 

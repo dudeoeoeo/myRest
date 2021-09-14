@@ -2,11 +2,13 @@ package com.myHome.myrest.controller;
 
 import com.myHome.myrest.model.Board;
 import com.myHome.myrest.repository.BoardRepository;
+import com.myHome.myrest.service.BoardService;
 import com.myHome.myrest.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private BoardValidator boardValidator;
@@ -58,15 +63,18 @@ public class BoardController {
     }
 
     @PostMapping("/form")
-    public String greetingSubmit(@Valid Board board, BindingResult bindingResult) {
+    public String write(@Valid Board board, BindingResult bindingResult, Authentication authentication) {
         boardValidator.validate(board, bindingResult);
         // save 시 Board 테이블에 이미 있는 id 라면 update 쿼리를 날림
         // 없는 id 라면 insert 쿼리를 날림
         if (bindingResult.hasErrors()) {
             return "board/form";
         }
-        System.out.println("Post Form 호출: "+board.getTitle()+", "+board.getContent());
-        boardRepository.save(board);
+        // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        boardService.save(board, username);
+        System.out.println("Post Form 호출: "+board.getTitle()+", "+board.getContent()+", username: "+username);
+        // boardRepository.save(board);
         return "redirect:/board/list";
     }
 }
