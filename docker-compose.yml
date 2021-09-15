@@ -5,7 +5,7 @@ services:
     image: mariadb:10.4
     container_name: maria_spring
     environment: 
-      - MARIADB_DATABASE=dev1
+      - MARIADB_DATABASE=mydb  # dev1
       - MARIADB_USER=myadmin
       - MARIADB_PASSWORD=12341234
       - MARIADB_ROOT_PASSWORD=password
