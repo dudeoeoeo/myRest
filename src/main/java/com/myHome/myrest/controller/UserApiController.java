@@ -3,6 +3,7 @@ package com.myHome.myrest.controller;
 import com.myHome.myrest.model.Board;
 import com.myHome.myrest.model.User;
 import com.myHome.myrest.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class UserApiController {
 
     @Autowired
@@ -17,7 +19,11 @@ public class UserApiController {
 
     @GetMapping("/users")
     List<User> all() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        log.debug("getBoards().size 호출 전");
+        log.debug("getBoards().size 호출: {}",users.get(0).getBoards().size());
+        log.debug("getBoards().size 호출 후");
+        return users;
     }
 
     @PostMapping("/users")
@@ -28,7 +34,6 @@ public class UserApiController {
     // Single item
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) {
-
         return userRepository.findById(id).orElse(null);
     }
 
