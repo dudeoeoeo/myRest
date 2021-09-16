@@ -44,11 +44,28 @@
           <div class="text-right">
             <br />
             <button type="submit" class="btn btn-primary" >완료</button>
+            <button type="button" class="btn btn-primary"
+                    sec:authorize="hasRole('ROLE_ADMIN')" th:onclick="|deleteBoard(*{id})|">삭제</button>
             <a type="button" class="btn btn-primary" th:href=@{/board/list}>취소</a>
           </div>
         </form>
     </div>
         
     <!-- /.container -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+  <script>
+    function deleteBoard(id) {
+      // /api/boards/id
+      $.ajax({
+          url: `/api/boards/${id}`,
+          method: "DELETE",
+          dataType: "text",
+          success: function (data) {
+              location.href = "/board/list";
+          }
+      });
+    }
+  </script>
   </body>
 </html>
