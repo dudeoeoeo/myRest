@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 public class User {
 
     @Id
@@ -26,7 +26,6 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"), // join할 테이블
     inverseJoinColumns = @JoinColumn(name = "role_id")) // join될 테이블
     private List<Role> roles = new ArrayList<>();
-
 
 
     // Board model이 가지고 있는 private User user 와 map

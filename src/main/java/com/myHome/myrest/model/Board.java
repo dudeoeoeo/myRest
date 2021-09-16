@@ -7,8 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
 @Data
+@Entity
 public class Board {
 
     @Id
@@ -23,9 +23,10 @@ public class Board {
 
     // 게시글은 한 명의 유저가 여러 개의 글을 쓸 수 있다. 때문에 Board
     // 입장에서는 ManyToOne 이다.
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     // referencedColumnName은 User 테이블의 PK 이므로 생략가능
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
+
 }

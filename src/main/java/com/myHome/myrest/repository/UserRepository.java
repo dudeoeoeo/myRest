@@ -11,6 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
     // User 클래스의 boards 변수명
-    @EntityGraph(attributePaths = { "boards" }) 
+    @EntityGraph(attributePaths = { "boards" })
     List<User> findAll();
 }

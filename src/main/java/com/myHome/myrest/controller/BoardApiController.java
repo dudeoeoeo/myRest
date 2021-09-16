@@ -3,6 +3,7 @@ package com.myHome.myrest.controller;
 import com.myHome.myrest.model.Board;
 import com.myHome.myrest.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -52,8 +53,10 @@ public class BoardApiController {
                 });
     }
 
+    @Secured("ROLE_ADMIN")   //({ "ROLE_ADMIN", "ROLE_EDITOR" })
     @DeleteMapping("/boards/{id}")
     void deleteBoard(@PathVariable Long id) {
+        System.out.println("boars delete 호출: "+id);
         repository.deleteById(id);
     }
 }
