@@ -18,12 +18,27 @@ public class UserApiController {
     private UserRepository userRepository;
 
     @GetMapping("/users")
-    List<User> all() {
-        List<User> users = userRepository.findAll();
-        log.debug("getBoards().size 호출 전");
-        log.debug("getBoards().size 호출: {}",users.get(0).getBoards().size());
-        log.debug("getBoards().size 호출 후");
-        return users;
+    List<User> all(@RequestParam(required = false) String method, @RequestParam(required = false) String text) {
+        List<User> users = null;
+        if("query".equals(method))
+            return users = userRepository.findByUsernameQuery(text);
+        else if("nativeQuery".equals(method))
+            return users = userRepository.findByUsernameNativeQuery(text);
+        else if("querydsl".equals(method)) {
+//            QUser user = QUser.user;
+//            Predicate predicate = user.username.contains(text);
+//            userRepository.findAll(predicate);
+        } else if("querydslCustom".equals(method)) {
+            return userRepository.findByCustomUsername(text);
+        } else if("jdbcQuery".equals(method)) {
+            return userRepository.findByUsernameJdbc(text);
+        }
+
+        return users = userRepository.findAll();
+
+//        log.debug("getBoards().size 호출 전");
+//        log.debug("getBoards().size 호출: {}",users.get(0).getBoards().size());
+//        log.debug("getBoards().size 호출 후");
     }
 
     @PostMapping("/users")
