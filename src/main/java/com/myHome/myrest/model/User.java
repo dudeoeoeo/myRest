@@ -33,7 +33,7 @@ public class User {
     // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     // LAZY 전략은 user를 호출할 때 board의 데이터가 필요 없다면 board 조회 쿼리를 날리지 않음
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    //@JsonIgnore
+    @JsonIgnore
     private List<Board> boards = new ArrayList<>();
 
 }
