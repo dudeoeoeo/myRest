@@ -1,6 +1,5 @@
 package com.myHome.myrest.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,7 +25,7 @@ public class Board {
     @ManyToOne(fetch = FetchType.EAGER)
     // referencedColumnName은 User 테이블의 PK 이므로 생략가능
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnore
+    //@JsonIgnore
     private User user;
 
 }

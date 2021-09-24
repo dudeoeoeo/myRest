@@ -17,8 +17,6 @@ class CustomizedUserRepositoryImpl implements CustomizedUserRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-
-    @Override
     public List<User> findByCustomUsername(String username) {
         /*
         QUser qUser = QUser.user;
@@ -32,7 +30,6 @@ class CustomizedUserRepositoryImpl implements CustomizedUserRepository {
         return null;
     }
 
-    @Override
     public List<User> findByUsernameJdbc(String username) {
 
         List<User> users = jdbcTemplate.query(
